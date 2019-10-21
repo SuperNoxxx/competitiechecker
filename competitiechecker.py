@@ -2,8 +2,10 @@
 
 import logging
 import re
+
 import pandas as pd
 import requests
+
 pd.set_option('display.max_rows', 500)
 pd.set_option('display.max_columns', 500)
 pd.set_option('display.width', 1000)
@@ -11,6 +13,7 @@ from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
 import locale
 import smtplib
+import configparser
 
 __author__ = "Stephan Driesmans"
 __copyright__ = """
@@ -29,34 +32,25 @@ __copyright__ = """
     limitations under the License.
 """
 __license__ = "Apache 2.0"
-__version__ = "1.0"
+__version__ = "1.01"
 __maintainer__ = "Stephan Driesmans"
 __email__ = "stephan.driesmans@gmail.com"
 __status__ = "Production"
 
-
 locale.setlocale(locale.LC_ALL, 'nl_BE')
 
-# 2 dagen om wedstrijddata in te voeren
-invoerinterval = 48
-# 5 dagen om te bevestigen
-bevestiginterval = 120
-# seizoen
-seizoen = "PBA competitie 2019-2020"
+config = configparser.ConfigParser()
+config.read('config.ini')
 
-# clubnaam zoals in de ploengamen vermeld
-clubnaam = "Amateurs"
-
-# login gegevens
-clubid = "c10012"
-paswoord = "xxxxxxxxxxx"
-
-# connectiegegevens google mailserver
-gmail_user = 'xxxxxxxxxxxx@gmail.com'
-gmail_password = 'xxxxxxxxxxxxxxx'
-
-# bijkomende contactpersoon voor mails
-competitieverantwoordelijke = "xxxxxxxxxxxxxxxxxxxxxxxx"
+invoerinterval = config.get('interval', 'invoeren')
+bevestiginterval = config.get('interval', 'bevestigen')
+seizoen = config.get('seizoen', 'naam')
+clubnaam = config.get('club', 'naam')
+clubid = config.get('club', 'id')
+paswoord = config.get('club', 'wachtwoord')
+gmail_user = config.get('mail', 'gebruiker')
+gmail_password = config.get('mail', 'wachtwoord')
+competitieverantwoordelijke = config.get('mail', 'competitieverantwoordelijke')
 
 logging.basicConfig(filename='competitiechecker.log', filemode='a', format='%(asctime)s - %(message)s',
                     level=logging.INFO)
@@ -85,7 +79,7 @@ def kapitein(team, soup):
     link = soup.find('a', href=True, text=team)
     teamlink = 'https://www.badmintonvlaanderen.be/' + link['href']
     page = s.get(teamlink)
-    email = re.search(r"[a-z0-9\.\-+_]+@[a-z0-9\.\-+_]+\.[a-z]+", page.text, re.I).group()
+    email = re.search(r"[a-z0-9.\-+_]+@[a-z0-9.\-+_]+\.[a-z]+", page.text, re.I).group()
     return (email)
 
 
@@ -123,6 +117,8 @@ Subject: %s
     except:
         logging.error('Er is iets misgegaan...')
 
+
+logging.info('Start van competitiechecker')
 
 with requests.Session() as s:
     # vraag pagina op en zoek naar de nodige coockies

@@ -1,0 +1,24 @@
+[interval]
+# 2 dagen om in te voeren
+invoeren = 48
+# 5 dagen om te bevestigen
+bevestigen = 120
+
+[seizoen]
+naam = PBA competitie 2019-2020
+
+[club]
+# clubnaam zoals in de ploegnamen vermeld
+naam =
+
+# login gegevens
+id =
+wachtwoord =
+
+[mail]
+# connectiegegevens google mailserver
+gebruiker =
+wachtwoord =
+
+# bijkomende contactpersoon voor mails
+competitieverantwoordelijke =
