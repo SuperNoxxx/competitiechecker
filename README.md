@@ -5,7 +5,7 @@ Python program to check unconfirmed competition matches on badmintonvaanderen.be
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-clone this repostory, copy config.ini.example to config.ini and add complete the file:
+clone this repostory, copy config.ini.example to config.ini and complete the file:
 
 ### Prerequisites
 
