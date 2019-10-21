@@ -5,22 +5,8 @@ Python program to check unconfirmed competition matches on badmintonvaanderen.be
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-clone this repostory, modify the following variables:
-```
-# clubnaam zoals in de ploegnamen vermeld
-clubnaam = "Amateurs"
+clone this repostory, copy config.ini.example to config.ini and add complete the file:
 
-# login gegevens
-clubid = "c10012"
-paswoord = "xxxxxxxxxxx"
-
-# connectiegegevens google mailserver
-gmail_user = 'xxxxxxxxxxxx@gmail.com'
-gmail_password = 'xxxxxxxxxxxxxxx'
-
-# bijkomende contactpersoon voor mails
-competitieverantwoordelijke = "xxxxxxxxxxxxxxxxxxxxxxxx"
-```
 ### Prerequisites
 
 At least python 3.6 is required
